@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 
 public class textCollection extends Activity {
@@ -20,8 +21,10 @@ public class textCollection extends Activity {
     final String TAG = "Java One Project One";
     private TextView mUserInput;
     private TextView mDataCount;
+    private TextView mAverageDisplay;
     private HashSet<String> collectedText = new HashSet<String>();
     private int currentCount;
+    private float average;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +75,48 @@ public class textCollection extends Activity {
 
                 }
 
+                findAverage(currentCount);
+
                 mUserInput.setText("");
 
             }
         });
+
+        Button findButton = (Button) findViewById(R.id.findButton);
+
+        findButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.i(TAG, "Button Clicked");
+
+            }
+        });
+
+    }
+
+    public void findAverage(int _arrayCount){
+
+        mAverageDisplay = (TextView) findViewById(R.id.averageDisplay);
+
+        int totalNumber = 0;
+        int sumOfTotal = 0;
+
+        Iterator<String> getWords = collectedText.iterator();
+
+        String currentWord = "";
+
+        while (getWords.hasNext()){
+
+            currentWord = getWords.next();
+            totalNumber = currentWord.length();
+            sumOfTotal = sumOfTotal += totalNumber;
+
+        }
+
+        average = (float)sumOfTotal/_arrayCount;
+
+        mAverageDisplay.setText("The Average Length Of Entries Is: " + average);
 
     }
 
