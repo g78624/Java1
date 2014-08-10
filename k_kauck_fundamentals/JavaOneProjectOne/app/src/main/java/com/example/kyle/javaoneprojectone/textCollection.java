@@ -7,16 +7,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 
 
 public class textCollection extends Activity {
@@ -24,8 +25,8 @@ public class textCollection extends Activity {
     final String TAG = "Java One Project One";
     private TextView mUserInput;
     private TextView mDataCount;
-    private TextView mFindIndex;
-    private LinkedHashSet<String> collectedText = new LinkedHashSet<String>();
+    private ListView mWordList;
+    private HashSet<String> collectedText = new HashSet<String>();
     private int currentCount;
 
     @Override
@@ -35,17 +36,13 @@ public class textCollection extends Activity {
 
         mUserInput = (TextView) findViewById(R.id.enteredText);
         mDataCount = (TextView) findViewById(R.id.dataEntries);
-        mFindIndex = (TextView) findViewById(R.id.findIndex);
+        mWordList  = (ListView) findViewById(R.id.displayList);
 
         Button submitButton = (Button) findViewById(R.id.submitButton);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //This will hide the keyboard from the user when they click the submit button
-                InputMethodManager keyboardHide = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                keyboardHide.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                 //Creates my Save Alert Toast
                 Context saveContext = getApplicationContext();
@@ -57,7 +54,7 @@ public class textCollection extends Activity {
                 Context duplicateContext = getApplicationContext();
                 CharSequence duplicateDisplay = "Duplicate Item Found, Entry Not Saved";
                 int duplicateDuration = Toast.LENGTH_SHORT;
-                Toast duplicateAlert = Toast.makeText(duplicateContext,duplicateDisplay, duplicateDuration);
+                Toast duplicateAlert = Toast.makeText(duplicateContext, duplicateDisplay, duplicateDuration);
 
                 Log.i(TAG, "Button Clicked");
                 String currentText = mUserInput.getText().toString();
@@ -68,7 +65,7 @@ public class textCollection extends Activity {
                 String currentCountString = Integer.toString(currentCount);
                 mDataCount.setText("Current Number of Entries Is: " + currentCountString);
 
-                if (standardCount == currentCount){
+                if (standardCount == currentCount) {
 
                     duplicateAlert.show();
 
@@ -80,82 +77,50 @@ public class textCollection extends Activity {
 
                 findAverage(currentCount);
 
-                int indexHint = currentCount - 1;
-
-                mUserInput.setText("");
-                mFindIndex.setHint("Enter Number Between 0 & " + indexHint);
-
-            }
-        });
-
-        Button findButton = (Button) findViewById(R.id.findButton);
-
-        findButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //This will hide the keyboard from the user when they click the submit button
-                InputMethodManager keyboardHide = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                keyboardHide.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-                int upToDateCount = collectedText.size();
-                String userEntry = mFindIndex.getText().toString();
-                int userNumber = (Integer.valueOf(userEntry));
                 String thisWord;
-                ArrayList<String> searchableList = new ArrayList<String>();
+                ArrayList<String> listArray = new ArrayList<String>();
 
-                if (userNumber < upToDateCount){
+                for (String myWord : collectedText) {
 
-                    Iterator<String> getWord = collectedText.iterator();
-
-                    while (getWord.hasNext()){
-
-                        thisWord = getWord.next();
-                        searchableList.add(thisWord);
-
-                    }
-
-                    String yourWord = searchableList.get(userNumber);
-
-                    AlertDialog.Builder showWord = new AlertDialog.Builder(textCollection.this);
-                    showWord.setTitle("Found Word!");
-                    showWord.setMessage("Your Word Is: " + yourWord);
-                    showWord.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-                    AlertDialog display = showWord.create();
-
-                    display.show();
-
-                    mFindIndex.setText("");
-
-                } else if (userNumber >= upToDateCount) {
-
-                    AlertDialog.Builder noWordFound = new AlertDialog.Builder(textCollection.this);
-                    noWordFound.setTitle("Could Not Find A Word!");
-                    noWordFound.setMessage("Sorry But It Seems The Number Your Entered Has No Word Linked To It.");
-                    noWordFound.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-                    AlertDialog display = noWordFound.create();
-
-                    display.show();
-
-                    mFindIndex.setText("");
+                    thisWord = myWord;
+                    listArray.add(thisWord);
 
                 }
 
+                ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<String>(textCollection.this, android.R.layout.simple_list_item_1, listArray);
+
+                mWordList.setAdapter(myArrayAdapter);
+
+                mUserInput.setText("");
+
             }
+
         });
 
+        mWordList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.i (TAG, "This Is So Totally Here!");
+
+                TextView wordView = (TextView) view;
+
+                AlertDialog.Builder showWord = new AlertDialog.Builder(textCollection.this);
+                showWord.setTitle("Found Word!");
+                showWord.setMessage("Your Word Is: " + wordView.getText().toString());
+                showWord.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog display = showWord.create();
+
+                display.show();
+
+            }
+        });
     }
 
     public void findAverage(int _arrayCount){
@@ -192,17 +157,5 @@ public class textCollection extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.text_collection, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
