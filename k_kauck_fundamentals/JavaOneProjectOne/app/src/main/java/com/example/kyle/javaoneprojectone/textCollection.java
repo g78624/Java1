@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +21,7 @@ import java.util.Iterator;
 
 public class textCollection extends Activity {
 
-    final String TAG = "Java One Project One";
+    //Setting Up Global Variables
     private TextView mUserInput;
     private TextView mDataCount;
     private ListView mWordList;
@@ -34,6 +33,7 @@ public class textCollection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_collection);
 
+        //Get the ID and setup variables for TextViews/ListView
         mUserInput = (TextView) findViewById(R.id.enteredText);
         mDataCount = (TextView) findViewById(R.id.dataEntries);
         mWordList  = (ListView) findViewById(R.id.displayList);
@@ -56,10 +56,11 @@ public class textCollection extends Activity {
                 int duplicateDuration = Toast.LENGTH_SHORT;
                 Toast duplicateAlert = Toast.makeText(duplicateContext, duplicateDisplay, duplicateDuration);
 
-                Log.i(TAG, "Button Clicked");
+                //Saves the information from the user input into a string to then be stored in the HashSet
                 String currentText = mUserInput.getText().toString();
                 collectedText.add(currentText);
 
+                //standardCount to compare the old number of entries to recently added to show proper toast message
                 int standardCount = currentCount;
                 currentCount = collectedText.size();
                 String currentCountString = Integer.toString(currentCount);
@@ -75,8 +76,10 @@ public class textCollection extends Activity {
 
                 }
 
+                //Call for the findAverage Method, sending in the currentCount of array items
                 findAverage(currentCount);
 
+                //Made a new String to store words as the foreach loop goes through the HashSet to add items to the Array List
                 String thisWord;
                 ArrayList<String> listArray = new ArrayList<String>();
 
@@ -87,21 +90,22 @@ public class textCollection extends Activity {
 
                 }
 
+                //Make a new ArrayAdapter to add items from the recently created Array List adding each one into the ListView
                 ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<String>(textCollection.this, android.R.layout.simple_list_item_1, listArray);
 
                 mWordList.setAdapter(myArrayAdapter);
 
+                //Resets the editText field to default.
                 mUserInput.setText("");
 
             }
 
         });
 
+        //This lets the user select a certain index from the ListView and then shows an Alert Dialog that shows the word that was selected.
         mWordList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Log.i (TAG, "This Is So Totally Here!");
 
                 TextView wordView = (TextView) view;
 
@@ -123,6 +127,7 @@ public class textCollection extends Activity {
         });
     }
 
+    //This is my find Average method that will calculate the average length of all words in my HashSet by iterating over them and then updating the TextView.
     public void findAverage(int _arrayCount){
 
        TextView mAverageDisplay;
