@@ -20,7 +20,7 @@
             android:layout_weight="0.86"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/averageDisplay"
+            android:id="@+id/medianDisplay"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
@@ -75,7 +75,8 @@
         android:layout_height="199dp"
         android:id="@+id/displayList"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
+        android:layout_marginRight="15dp"
+        android:textFilterEnabled="false" />
 
     <Button
         android:layout_width="369dp"

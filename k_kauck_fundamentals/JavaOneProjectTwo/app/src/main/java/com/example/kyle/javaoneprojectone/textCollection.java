@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -22,7 +23,6 @@ import java.util.Iterator;
 public class textCollection extends Activity {
 
     //Setting Up Global Variables
-    //private String TAG = "project 2";
     private TextView mUserInput;
     private TextView mDataCount;
     private ListView mWordList;
@@ -79,7 +79,7 @@ public class textCollection extends Activity {
                 }
 
                 //Call for the findAverage Method, sending in the currentCount of array items
-                findAverage(currentCount);
+                findAverage();
 
                 //Made a new String to store words as the foreach loop goes through the HashSet to add items to the Array List
                 String thisWord;
@@ -93,7 +93,7 @@ public class textCollection extends Activity {
                 }
 
                 //Make a new ArrayAdapter to add items from the recently created Array List adding each one into the ListView
-                ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<String>(textCollection.this, android.R.layout.simple_list_item_1, listArray);
+                ArrayAdapter<String> myArrayAdapter = new ArrayAdapter<String>(textCollection.this, R.layout.text_view1, listArray);
 
                 mWordList.setAdapter(myArrayAdapter);
 
@@ -174,15 +174,16 @@ public class textCollection extends Activity {
     }
 
     //This is my find Average method that will calculate the average length of all words in my HashSet by iterating over them and then updating the TextView.
-    public void findAverage(int _arrayCount){
+    public void findAverage(){
 
-       TextView mAverageDisplay;
+       TextView mMedianDisplay;
 
-        mAverageDisplay = (TextView) findViewById(R.id.averageDisplay);
+        mMedianDisplay = (TextView) findViewById(R.id.medianDisplay);
 
-        float average;
-        int totalNumber;
-        int sumOfTotal = 0;
+        Integer totalNumber;
+        float medianNumber;
+
+        ArrayList<Integer> wordCounts = new ArrayList<Integer>();
 
         Iterator<String> getWords = collectedText.iterator();
 
@@ -192,13 +193,26 @@ public class textCollection extends Activity {
 
             currentWord = getWords.next();
             totalNumber = currentWord.length();
-            sumOfTotal = sumOfTotal + totalNumber;
+            wordCounts.add(totalNumber);
 
         }
 
-        average = (float)sumOfTotal/_arrayCount;
+        Collections.sort(wordCounts);
 
-        mAverageDisplay.setText("The Average Length Of Entries Is: " + average);
+        int middle = wordCounts.size()/2;
+
+        if (wordCounts.size() % 2 == 0){
+
+            int middleEven = middle-1;
+            medianNumber = (float) (wordCounts.get(middleEven) + wordCounts.get(middle)) / 2;
+            mMedianDisplay.setText("The Median Length of Entries Is: " + medianNumber);
+
+        } else {
+
+            medianNumber = wordCounts.get(middle);
+            mMedianDisplay.setText("The Median Length of Entries Is: " + medianNumber);
+
+        }
 
     }
 
