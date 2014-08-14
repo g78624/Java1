@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,6 +46,10 @@ public class textCollection extends Activity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //This will close the keyboard when the user clicks the submit button
+                InputMethodManager hideKeyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                hideKeyboard.hideSoftInputFromWindow(mUserInput.getWindowToken(), 0);
 
                 //Creates my Save Alert Toast
                 Context saveContext = getApplicationContext();
