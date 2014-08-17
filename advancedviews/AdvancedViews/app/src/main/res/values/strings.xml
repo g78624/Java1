@@ -4,6 +4,25 @@
     <string name="app_name">AdvancedViews</string>
     <string name="hello_world">Hello Portrait World!</string>
     <string name="goodbye_world">Goodbye Landscape World!</string>
+    <string name="test">Test Me</string>
     <string name="action_settings">Settings</string>
+    
+    <string-array name="videoGames">
+
+        <title>The Last Of Us
+            <platform>Playstation 4</platform>
+            <reviewScore>10.0</reviewScore>
+            <genre>Action/Adventure</genre>
+            <rated>Mature</rated>
+        </title>
+
+        <title>Halo: Master Chief Collection
+            <platform>Xbox One</platform>
+            <reviewScore>N/A</reviewScore>
+            <genre>Action/First Person</genre>
+            <rated>Mature</rated>
+        </title>
+
+    </string-array>
 
 </resources>
