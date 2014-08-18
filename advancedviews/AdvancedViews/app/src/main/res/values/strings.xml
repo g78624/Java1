@@ -7,21 +7,19 @@
     <string name="test">Test Me</string>
     <string name="action_settings">Settings</string>
     
-    <string-array name="videoGames">
+    <string-array name="videoGameTitles">
 
-        <title>The Last Of Us
-            <platform>Playstation 4</platform>
-            <reviewScore>10.0</reviewScore>
-            <genre>Action/Adventure</genre>
-            <rated>Mature</rated>
-        </title>
+        <item>The Last of Us</item>
+        <item>Halo: Master Chief Collections</item>
+        <item>Dragon Age: Inquisition</item>
 
-        <title>Halo: Master Chief Collection
-            <platform>Xbox One</platform>
-            <reviewScore>N/A</reviewScore>
-            <genre>Action/First Person</genre>
-            <rated>Mature</rated>
-        </title>
+    </string-array>
+
+    <string-array name="gameScore">
+
+        <item>10.0</item>
+        <item>Not Rated</item>
+        <item>Not Rated</item>
 
     </string-array>
 
