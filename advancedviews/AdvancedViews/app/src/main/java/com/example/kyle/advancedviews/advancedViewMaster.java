@@ -1,8 +1,12 @@
 package com.example.kyle.advancedviews;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -13,14 +17,14 @@ public class advancedViewMaster extends Activity {
 
     private ArrayList<VideoGames> mVideoGames = new ArrayList<VideoGames>();
     private ListView mGamesList;
-    private Spinner  mGamesSpinner = (Spinner) findViewById(R.id.gamesSpinner);
+    private Spinner  mGamesSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_view_master);
 
-        mGamesList = (ListView) findViewById(R.id.landListView);
+        mGamesSpinner = (Spinner) findViewById(R.id.gamesSpinner);
 
         mVideoGames = new ArrayList<VideoGames>();
         mVideoGames.add(new VideoGames("The Last of Us", "Playstation 4", "Action/Adventure", 10));
@@ -32,23 +36,53 @@ public class advancedViewMaster extends Activity {
         mVideoGames.add(new VideoGames("MLB 14: The Show", "Playstation 4", "Sports", 7));
         mVideoGames.add(new VideoGames("World of Warcraft", "PC", "Massively Multiplayer Online RPG", 9));
 
-        /*ArrayAdapter<VideoGames> myArrayAdapter = new ArrayAdapter<VideoGames>(this, android.R.layout.simple_spinner_item, mVideoGames);
-        myArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mGamesSpinner.setAdapter(myArrayAdapter);*/
-
         mGamesSpinner.setAdapter(new spinnerAdapter(this, mVideoGames));
-        mGamesList.setAdapter(new newAdapter(this, mVideoGames));
-
-        //new newAdapter(this, mVideoGames);
-
-        //ArrayAdapter<VideoGames> myArrayAdapter = new ArrayAdapter<VideoGames>(advancedViewMaster.this, android.R.layout.simple_list_item_1, mVideoGames);
-
-        //mGamesList.setAdapter(listAdapter);
-
-        //mGamesList.setAdapter(newAdapter);
 
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration myConfig){
+
+        super.onConfigurationChanged(myConfig);
+
+        if (myConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+
+            setContentView(R.layout.activity_advanced_view_master);
+            mGamesSpinner = (Spinner) findViewById(R.id.gamesSpinner);
+            mGamesSpinner.setAdapter(new spinnerAdapter(this, mVideoGames));
+
+            mGamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    Log.i("Project 3: ", mVideoGames.get(position).getTitle());
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+        } else if (myConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            setContentView(R.layout.activity_advanced_view_master);
+            mGamesList = (ListView) findViewById(R.id.landListView);
+            mGamesList.setAdapter(new newAdapter(this, mVideoGames));
+
+            mGamesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Log.i("Project 3: ", mVideoGames.get(position).getTitle());
+
+                }
+            });
+
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
