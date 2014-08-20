@@ -5,18 +5,18 @@ public class VideoGames {
     private String mTitle;
     private String mPlatform;
     private String mGenre;
-    private int    mScore;
+    private String mScore;
 
     public VideoGames(){
 
         mTitle = "";
         mPlatform = "";
         mGenre = "";
-        mScore = 0;
+        mScore = "";
 
     }
 
-    public VideoGames (String _title, String _platform, String _genre, int _score){
+    public VideoGames (String _title, String _platform, String _genre, String _score){
 
         mTitle = _title;
         mPlatform = _platform;
@@ -61,13 +61,13 @@ public class VideoGames {
 
     }
 
-    public int getScore(){
+    public String getScore(){
 
         return mScore;
 
     }
 
-    public void setScore (int _score){
+    public void setScore (String _score){
 
         mScore = _score;
 
