@@ -30,6 +30,7 @@ public class advancedViewMaster extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_view_master);
 
+        //Creates my Games for the mVideoGames Array list using the custom class
         mVideoGames = new ArrayList<VideoGames>();
         mVideoGames.add(new VideoGames("The Last of Us", "Playstation 4", "Action/Adventure", "10"));
         mVideoGames.add(new VideoGames("Halo: Master Chief Collections", "Xbox One", "First Person Shooter", "9"));
@@ -40,6 +41,7 @@ public class advancedViewMaster extends Activity {
         mVideoGames.add(new VideoGames("MLB 14: The Show", "Playstation 4", "Sports", "7"));
         mVideoGames.add(new VideoGames("World of Warcraft", "PC", "Massively Multiplayer Online RPG", "9"));
 
+        //Calls method to find the users screen orientation
         getScreenOrientation();
 
     }
@@ -49,6 +51,7 @@ public class advancedViewMaster extends Activity {
         Display getScreen = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         int currentOrientation = getScreen.getRotation();
 
+        //This will determine if the phone is in portrait mode and will run the corresponding code
         if (currentOrientation == Surface.ROTATION_0 || currentOrientation == Surface.ROTATION_180) {
 
             Spinner  mGamesSpinner;
@@ -62,6 +65,7 @@ public class advancedViewMaster extends Activity {
 
                     Log.i("Project 3: ", mVideoGames.get(position).getTitle());
 
+                    //Passes in the position to the createNewView Method
                     createNewView(position);
 
                 }
@@ -72,6 +76,7 @@ public class advancedViewMaster extends Activity {
                 }
             });
 
+            //This will determine if the phone is in landscape mode and will run corresponding code
         } else if (currentOrientation == Surface.ROTATION_90 || currentOrientation == Surface.ROTATION_270){
 
             ListView mGamesList;
@@ -85,6 +90,7 @@ public class advancedViewMaster extends Activity {
 
                     Log.i("Project 3: ", mVideoGames.get(position).getTitle());
 
+                    //Passes in the position to the createNewView Method.
                     createNewView(position);
 
                 }
@@ -96,6 +102,7 @@ public class advancedViewMaster extends Activity {
 
     private void createNewView(int position){
 
+        //Creates the new view and calls the Activity while passing all the information to the new view and activity.
         Intent detailViewIntent = new Intent(getApplicationContext(), detailView.class);
 
         detailViewIntent.putExtra(TITLE, mVideoGames.get(position).getTitle());
@@ -107,6 +114,7 @@ public class advancedViewMaster extends Activity {
 
     }
 
+    //This will be called any time the screen orientation is changed and will then call the getScreenOrientation method.
     @Override
     public void onConfigurationChanged(Configuration myConfig){
 
