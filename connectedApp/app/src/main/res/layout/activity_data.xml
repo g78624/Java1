@@ -1,3 +1,5 @@
+<!--Kyle Kauck-->
+
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -34,12 +36,152 @@
             android:layout_marginTop="15dp" />
     </LinearLayout>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dataProgress"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dataProgress"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="45dp" />
+        android:id="@+id/toonNameLabel"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:textColor="#fface1ff" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/displayLayout"
+        android:layout_height="155dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toonLevel"
+            android:id="@+id/toonLevelView"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#fface1ff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/toonLevelLabel"
+            android:layout_toEndOf="@+id/toonLevelView"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/toonLevelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/realmName"
+            android:id="@+id/realmName"
+            android:layout_below="@+id/toonLevelView"
+            android:layout_alignLeft="@+id/toonLevelView"
+            android:layout_alignStart="@+id/toonLevelView"
+            android:textColor="#fface1ff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/realmNameLabel"
+            android:layout_alignBottom="@+id/realmName"
+            android:layout_toRightOf="@+id/realmName"
+            android:layout_toEndOf="@+id/realmName"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/battlegroup"
+            android:id="@+id/battlegroup"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#fface1ff"
+            android:layout_below="@+id/realmName"
+            android:layout_alignLeft="@+id/realmName"
+            android:layout_alignStart="@+id/realmName"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/battlegroupLabel"
+            android:layout_toEndOf="@+id/battlegroup"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_below="@+id/realmName"
+            android:layout_toStartOf="@+id/toonLevelLabel"
+            android:layout_alignRight="@+id/achievementLabel"
+            android:layout_alignEnd="@+id/achievementLabel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/achievement"
+            android:id="@+id/achievements"
+            android:textColor="#fface1ff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_below="@+id/battlegroup"
+            android:layout_alignLeft="@+id/battlegroup"
+            android:layout_alignStart="@+id/battlegroup"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/achievementLabel"
+            android:layout_alignBottom="@+id/achievements"
+            android:layout_toRightOf="@+id/achievements"
+            android:layout_toEndOf="@+id/achievements"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/honorableKills"
+            android:id="@+id/honorableKills"
+            android:textColor="#fface1ff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_below="@+id/achievements"
+            android:layout_alignLeft="@+id/achievements"
+            android:layout_alignStart="@+id/achievements"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/honorableKillsLabel"
+            android:layout_alignTop="@+id/honorableKills"
+            android:layout_toRightOf="@+id/honorableKills"
+            android:layout_toEndOf="@+id/honorableKills"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

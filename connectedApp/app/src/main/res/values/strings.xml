@@ -6,5 +6,10 @@
     <string name="serverHint">Please Enter Your Server Name</string>
     <string name="toonHint">Please Enter Your Character Name</string>
     <string name="searchToon">Search For Character</string>
+    <string name="toonLevel">Character Level:</string>
+    <string name="realmName">Realm Name:</string>
+    <string name="battlegroup">Battlegroup:</string>
+    <string name="achievement">Achievement Points:</string>
+    <string name="honorableKills">Honorable Kills:</string>
 
 </resources>

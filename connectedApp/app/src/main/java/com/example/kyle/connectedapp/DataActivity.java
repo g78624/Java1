@@ -1,3 +1,5 @@
+//Kyle Kauck
+
 package com.example.kyle.connectedapp;
 
 import android.app.Activity;
@@ -20,14 +22,17 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 
 public class DataActivity extends Activity {
 
     final String TAG = "Warcraft Character App";
+    private ArrayList<Character> mCharacter = new ArrayList<Character>();
     private TextView mServerView;
     private TextView mCharacterView;
     ProgressBar mDataProgress;
+    private View mDataDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,8 @@ public class DataActivity extends Activity {
         mCharacterView = (TextView) findViewById(R.id.toonInput);
         mDataProgress = (ProgressBar) findViewById(R.id.dataProgress);
         mDataProgress.setVisibility(View.INVISIBLE);
+        mDataDisplay = findViewById(R.id.displayLayout);
+        mDataDisplay.setVisibility(View.INVISIBLE);
 
         Button searchButton = (Button) findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +84,17 @@ public class DataActivity extends Activity {
         });
     }
 
+    private void displayInfo(Character character){
+
+        ((TextView) findViewById(R.id.toonNameLabel)).setText(character.getName());
+        ((TextView) findViewById(R.id.toonLevelLabel)).setText(character.getLevel().toString());
+        ((TextView) findViewById(R.id.realmNameLabel)).setText(character.getServer());
+        ((TextView) findViewById(R.id.battlegroupLabel)).setText(character.getBattlegroup());
+        ((TextView) findViewById(R.id.achievementLabel)).setText(character.getAchievements().toString());
+        ((TextView) findViewById(R.id.honorableKillsLabel)).setText(character.getHonorableKills().toString());
+
+    }
+
     protected boolean networkConnection() {
 
         ConnectivityManager myConnection = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -102,8 +120,6 @@ public class DataActivity extends Activity {
             String jsonInfo = "";
 
             for (URL getInfoURL : urls) {
-
-                //publishProgress();
 
                 try {
 
@@ -143,6 +159,8 @@ public class DataActivity extends Activity {
 
             Character newCharacter = new Character(characterData);
             mDataProgress.setVisibility(View.INVISIBLE);
+            mDataDisplay.setVisibility(View.VISIBLE);
+            displayInfo(newCharacter);
 
         }
 

@@ -1,3 +1,5 @@
+//Kyle Kauck
+
 package com.example.kyle.connectedapp;
 
 import android.util.Log;
