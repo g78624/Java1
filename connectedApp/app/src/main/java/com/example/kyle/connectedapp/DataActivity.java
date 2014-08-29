@@ -22,13 +22,11 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 
 
 public class DataActivity extends Activity {
 
     final String TAG = "Warcraft Character App";
-    private ArrayList<Character> mCharacter = new ArrayList<Character>();
     private TextView mServerView;
     private TextView mCharacterView;
     ProgressBar mDataProgress;
@@ -42,6 +40,8 @@ public class DataActivity extends Activity {
         mServerView = (TextView) findViewById(R.id.serverInput);
         mCharacterView = (TextView) findViewById(R.id.toonInput);
         mDataProgress = (ProgressBar) findViewById(R.id.dataProgress);
+
+        //Will set the progress bar and the data display layout to invisible to start the app
         mDataProgress.setVisibility(View.INVISIBLE);
         mDataDisplay = findViewById(R.id.displayLayout);
         mDataDisplay.setVisibility(View.INVISIBLE);
@@ -51,6 +51,7 @@ public class DataActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                //Calls the function for the network connection and then runs code accordingly
                 if (networkConnection()) {
 
                     InputMethodManager hideKeyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -97,6 +98,7 @@ public class DataActivity extends Activity {
 
     protected boolean networkConnection() {
 
+        //Gets the connectivity of the app and returns if the device is internet capable or not
         ConnectivityManager myConnection = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo myNetwork = myConnection.getActiveNetworkInfo();
 
@@ -123,6 +125,7 @@ public class DataActivity extends Activity {
 
                 try {
 
+                    //Connects to the URL and returns the information as a string
                     URLConnection connect = getInfoURL.openConnection();
                     jsonInfo = IOUtils.toString(connect.getInputStream());
                     break;
@@ -141,6 +144,7 @@ public class DataActivity extends Activity {
 
             try {
 
+                //Saves the information string into a JSONObject
                 characterData = new JSONObject(jsonInfo);
 
             } catch (Exception e) {
@@ -157,6 +161,7 @@ public class DataActivity extends Activity {
         @Override
         protected void onPostExecute(JSONObject characterData) {
 
+            //This will return all the information and pass it to the Character class so that it can then be displayed to the user
             Character newCharacter = new Character(characterData);
             mDataProgress.setVisibility(View.INVISIBLE);
             mDataDisplay.setVisibility(View.VISIBLE);
